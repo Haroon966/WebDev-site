@@ -37,12 +37,22 @@ jobs:
       - name: Deploy static files to Hostinger via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}  # Include port 21, e.g., "ftp.yourdomain.com:21" or just the domain (21 is default)
+          server: ${{ secrets.FTP_SERVER }}  # FTP server hostname only (e.g., "ftp.yourdomain.com" or "files.000webhostapp.com")
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          port: 21  # FTP port (21 is standard)
+          protocol: ftp  # Use 'ftp' for standard FTP, 'ftps' for secure FTP
           local-dir: ./out/
           server-dir: /public_html/
-          port: 21  # Explicit FTP port (default is 21)
+          # Exclude build artifacts and unnecessary files
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.next/**
+            **/cache/**
+            **/*.map
+            **/trace
           # Exclude build artifacts and unnecessary files
           exclude: |
             **/.git*
