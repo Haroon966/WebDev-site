@@ -53,13 +53,4 @@ jobs:
             **/cache/**
             **/*.map
             **/trace
-          # Exclude build artifacts and unnecessary files
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/.next/**
-            **/cache/**
-            **/*.map
-            **/trace
 
