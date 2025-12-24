@@ -1,10 +1,10 @@
-import { FaGlobe, FaEnvelope, FaMobileAlt } from 'react-icons/fa'
+import { AnimatedGlobe, AnimatedMail, AnimatedPhone } from './AnimatedIcons'
 
 export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // Handle form submission here
-    alert('Thank you for your message! I will get back to you soon.')
+    alert('Thank you for your message! Our team will get back to you soon.')
   }
 
   return (
@@ -12,35 +12,35 @@ export default function Contact() {
       <div className="container">
         <h2 className="section-title">Get In Touch</h2>
         <p className="section-subtitle">
-          Let's discuss your next web development project
+          Let's discuss your next web development project with our team
         </p>
         <div className="contact-content">
           <div className="contact-info" data-aos="fade-right">
             <div className="contact-item">
-              <div className="contact-icon"><FaGlobe /></div>
+              <div className="contact-icon"><AnimatedGlobe size={40} /></div>
               <h3>Location</h3>
               <p>Pakistan</p>
             </div>
             <div className="contact-item">
-              <div className="contact-icon"><FaEnvelope /></div>
+              <div className="contact-icon"><AnimatedMail size={40} /></div>
               <h3>Email</h3>
               <p>
-                <a href="mailto:contact@haroonali.dev" style={{ color: 'inherit', textDecoration: 'none' }}>
-                  Contact me via form
+                <a href="mailto:contact@webdevsolutions.com" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  Contact us via form
                 </a>
               </p>
             </div>
             <div className="contact-item">
-              <div className="contact-icon"><FaMobileAlt /></div>
+              <div className="contact-icon"><AnimatedPhone size={40} /></div>
               <h3>Connect</h3>
               <p>
                 <a 
-                  href="https://instagram.com/haroon.1920" 
+                  href="https://instagram.com/webdevsolutions" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   style={{ color: 'inherit', textDecoration: 'none' }}
                 >
-                  Instagram: @haroon.1920
+                  Instagram: @webdevsolutions
                 </a>
               </p>
             </div>

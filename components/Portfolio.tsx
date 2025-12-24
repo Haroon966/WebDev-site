@@ -73,6 +73,20 @@ export default function Portfolio() {
       tags: ['JavaScript', 'Web Development', 'Productivity'],
       image: '/images/inventorymanagementsystem.png',
     },
+    {
+      title: 'On-Page SEO Auditor',
+      description: 'Chrome extension for comprehensive on-page SEO analysis. Our team developed this extension to help developers and marketers audit their website\'s SEO performance directly from the browser. Live on Chrome Web Store.',
+      tags: ['Chrome Extension', 'JavaScript', 'SEO', 'Web Development'],
+      url: 'https://chromewebstore.google.com/detail/on-page-seo-auditor/onjbdonpdkcfpffhefpofcadjjjipoeg',
+      image: '/images/onpageseoauditor.png',
+    },
+    {
+      title: 'QuickLink Manager - Drag & Drop Bookmarks',
+      description: 'Chrome extension featuring drag-and-drop bookmark management for enhanced productivity. Our team developed this extension to provide users with an intuitive way to organize and access their bookmarks. Live on Chrome Web Store.',
+      tags: ['Chrome Extension', 'JavaScript', 'Productivity', 'Bookmarks'],
+      url: 'https://chromewebstore.google.com/detail/quicklink-manager-drag-dr/mclgefeaonlhenjilfagojgifamhnohg',
+      image: '/images/quicklinkmanager.png',
+    },
   ]
 
   // Initialize gallery order (all items except the main one)
@@ -176,8 +190,8 @@ export default function Portfolio() {
     >
       <div className="container">
         <div className="portfolio-header">
-          <h2 className="section-title">My Portfolio</h2>
-          <p className="section-subtitle">Showcasing my latest web development projects</p>
+          <h2 className="section-title">Our Portfolio</h2>
+          <p className="section-subtitle">Showcasing our latest web development projects and innovative solutions</p>
         </div>
         <div className="portfolio-layout">
           {/* Large main card (top-left) */}
@@ -197,6 +211,7 @@ export default function Portfolio() {
                 aria-label={`Featured project: ${portfolioItems[mainIndex].title}. Click to view details.`}
               >
                 <div className="portfolio-card-image">
+                  <div className="portfolio-image-overlay"></div>
                   {portfolioItems[mainIndex].image ? (
                     <Image
                       src={getImageUrl(portfolioItems[mainIndex], true)}
@@ -215,12 +230,15 @@ export default function Portfolio() {
                   )}
                 </div>
                 <div className="portfolio-card-content">
-                  <div className="portfolio-badge">Featured</div>
+                  <div className="portfolio-badge">
+                    <span className="badge-icon">⭐</span>
+                    Featured Project
+                  </div>
                   <h3>{portfolioItems[mainIndex].title}</h3>
                   <p>{portfolioItems[mainIndex].description}</p>
                   <div className="portfolio-tags" role="list" aria-label="Technologies used">
                     {portfolioItems[mainIndex].tags.map((tag) => (
-                      <span key={tag} role="listitem">{tag}</span>
+                      <span key={tag} role="listitem" className="portfolio-tag">{tag}</span>
                     ))}
                   </div>
                   {portfolioItems[mainIndex].url && (
@@ -229,7 +247,8 @@ export default function Portfolio() {
                       onClick={(e) => openModal(portfolioItems[mainIndex], e)}
                       aria-label={`View ${portfolioItems[mainIndex].title} website`}
                     >
-                      View Website
+                      <span>View Website</span>
+                      <span className="btn-icon">→</span>
                     </button>
                   )}
                 </div>
@@ -245,10 +264,10 @@ export default function Portfolio() {
             {rightColumnIndices.map((index) => {
               const item = portfolioItems[index]
               return (
-                  <article
-                    key={`${item.title}-right-${index}`}
-                    className="portfolio-card shuffle-enter-active"
-                    data-aos="fade-left"
+                <article
+                  key={`${item.title}-right-${index}`}
+                  className="portfolio-card portfolio-card-gallery shuffle-enter-active"
+                  data-aos="fade-left"
                   onClick={() => handleCardClick(index)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -261,6 +280,7 @@ export default function Portfolio() {
                   aria-label={`${item.title}. Click to feature this project.`}
                 >
                   <div className="portfolio-card-image">
+                    <div className="portfolio-image-overlay"></div>
                     {item.image ? (
                       <Image
                         src={getImageUrl(item)}
@@ -277,6 +297,10 @@ export default function Portfolio() {
                         loading="lazy"
                       />
                     )}
+                  </div>
+                  <div className="portfolio-card-hover-content">
+                    <h4>{item.title}</h4>
+                    <span className="hover-arrow">→</span>
                   </div>
                 </article>
               )
@@ -290,7 +314,7 @@ export default function Portfolio() {
               return (
                 <article
                   key={`${item.title}-bottom-${index}`}
-                  className="portfolio-card shuffle-enter-active"
+                  className="portfolio-card portfolio-card-gallery shuffle-enter-active"
                   onClick={() => handleCardClick(index)}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -303,6 +327,7 @@ export default function Portfolio() {
                   aria-label={`${item.title}. Click to feature this project.`}
                 >
                   <div className="portfolio-card-image">
+                    <div className="portfolio-image-overlay"></div>
                     {item.image ? (
                       <Image
                         src={getImageUrl(item)}
@@ -320,6 +345,10 @@ export default function Portfolio() {
                       />
                     )}
                   </div>
+                  <div className="portfolio-card-hover-content">
+                    <h4>{item.title}</h4>
+                    <span className="hover-arrow">→</span>
+                  </div>
                 </article>
               )
             })}
@@ -329,11 +358,20 @@ export default function Portfolio() {
 
       {/* Modal */}
       {isModalOpen && selectedWebsite && selectedWebsite.url && (
-        <div className="website-modal-overlay" onClick={closeModal}>
+        <div className="website-modal-overlay" onClick={closeModal} role="dialog" aria-modal="true" aria-labelledby="modal-title">
           <div className="website-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={closeModal}>&times;</button>
+            <button 
+              className="modal-close" 
+              onClick={closeModal}
+              aria-label="Close modal"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
             <div className="modal-header">
-              <h2>{selectedWebsite.title}</h2>
+              <h2 id="modal-title">{selectedWebsite.title}</h2>
+              {selectedWebsite.description && (
+                <p className="modal-description">{selectedWebsite.description}</p>
+              )}
             </div>
             <div className="modal-content">
               {isLoading && (
@@ -349,6 +387,7 @@ export default function Portfolio() {
                 allowFullScreen
                 onLoad={handleIframeLoad}
                 style={{ opacity: isLoading ? 0 : 1 }}
+                aria-label={`Preview of ${selectedWebsite.title} website`}
               />
             </div>
           </div>

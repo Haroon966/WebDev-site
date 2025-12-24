@@ -159,10 +159,10 @@ export default function Hero() {
             Crafting Digital <span className="highlight">Experiences</span> That Matter
           </h1>
           <p className="hero-description">
-            Web Developer & UI/UX Designer passionate about creating beautiful, functional, and user-centered digital solutions.
+            A leading web development agency specializing in creating beautiful, functional, and user-centered digital solutions for businesses.
           </p>
           <div className="hero-buttons">
-            <a href="#portfolio" className="btn btn-primary">View My Work</a>
+            <a href="#portfolio" className="btn btn-primary">View Our Work</a>
             <a href="#contact" className="btn btn-secondary">Get In Touch</a>
           </div>
         </div>

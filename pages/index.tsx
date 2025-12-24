@@ -7,38 +7,39 @@ import Services from '@/components/Services'
 import Process from '@/components/Process'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
+import SocialButtons from '@/components/SocialButtons'
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Haroon Ali | Web Developer & UI/UX Designer Portfolio</title>
+        <title>WebDev Solutions | Web Development Agency & UI/UX Design Services</title>
         <meta 
           name="description" 
-          content="Haroon Ali - Web developer, graphic designer, and UI/UX designer from Pakistan. Specializing in React, Django, Python, and creating seamless digital experiences for businesses like DataFitt, Alfalah Maid Services, and more." 
+          content="WebDev Solutions - A leading web development agency from Pakistan. Specializing in React, Django, Python, and creating seamless digital experiences for businesses like DataFitt, Alfalah Maid Services, and more." 
         />
         <meta 
           name="keywords" 
-          content="Haroon Ali, web developer, UI/UX designer, graphic designer, React, Django, Python, TypeScript, HTML, CSS, JavaScript, Figma, Pakistan, freelance developer" 
+          content="web development agency, UI/UX design services, web design company, React, Django, Python, TypeScript, HTML, CSS, JavaScript, Figma, Pakistan, web development services" 
         />
-        <meta name="author" content="Haroon Ali" />
+        <meta name="author" content="WebDev Solutions" />
         <meta name="robots" content="index, follow" />
         
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Haroon Ali | Web Developer & UI/UX Designer" />
+        <meta property="og:title" content="WebDev Solutions | Web Development Agency & UI/UX Design Services" />
         <meta 
           property="og:description" 
-          content="Web developer, graphic designer, and UI/UX designer from Pakistan. Specializing in React, Django, Python, and creating seamless digital experiences." 
+          content="A leading web development agency from Pakistan. Specializing in React, Django, Python, and creating seamless digital experiences for businesses." 
         />
         <meta property="og:url" content="https://yourwebsite.com" />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Haroon Ali | Web Developer & UI/UX Designer" />
+        <meta name="twitter:title" content="WebDev Solutions | Web Development Agency" />
         <meta 
           name="twitter:description" 
-          content="Web developer, graphic designer, and UI/UX designer from Pakistan. Specializing in React, Django, Python." 
+          content="A leading web development agency from Pakistan. Specializing in React, Django, Python." 
         />
         
         {/* Canonical URL */}
@@ -50,17 +51,17 @@ export default function Home() {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Person",
-              "name": "Haroon Ali",
-              "jobTitle": "Web Developer & UI/UX Designer",
+              "@type": "Organization",
+              "name": "WebDev Solutions",
+              "description": "A leading web development agency specializing in web development, UI/UX design, and digital solutions",
               "url": "https://yourwebsite.com",
               "address": {
                 "@type": "PostalAddress",
                 "addressCountry": "PK"
               },
               "sameAs": [
-                "https://github.com/Haroon966",
-                "https://instagram.com/haroon.1920"
+                "https://github.com/webdevsolutions",
+                "https://instagram.com/webdevsolutions"
               ],
               "knowsAbout": [
                 "Web Development",
@@ -77,6 +78,13 @@ export default function Home() {
                 "Figma",
                 "SEO Optimization",
                 "Responsive Design"
+              ],
+              "serviceType": [
+                "Web Development",
+                "UI/UX Design",
+                "Graphic Design",
+                "SEO Optimization",
+                "Web Design"
               ]
             })
           }}
@@ -93,6 +101,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <SocialButtons />
     </>
   )
 }

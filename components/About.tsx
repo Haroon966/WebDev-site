@@ -1,4 +1,5 @@
-import { FaRocket } from 'react-icons/fa'
+import { AnimatedRocket, AnimatedArrowUpRight } from './AnimatedIcons'
+import Image from 'next/image'
 
 export default function About() {
   const skills = [
@@ -15,32 +16,109 @@ export default function About() {
     'SEO Optimization',
   ]
 
+  const projectImages = [
+    { src: '/images/alfalahmaidservices.png', height: 'tall' },
+    { src: '/images/alfalahpuredrop.png', height: 'short' },
+    { src: '/images/aitemaadmaidservices.png', height: 'tall' },
+    { src: '/images/ecomerce-petstore.png', height: 'short' },
+  ]
+
+  // Split images into two columns
+  const column1Images = projectImages.filter((_, index) => index % 2 === 0)
+  const column2Images = projectImages.filter((_, index) => index % 2 === 1)
+
   return (
     <section id="about" className="about" data-aos="fade-up">
-      <div className="container">
-        <h2 className="section-title">About Me</h2>
-        <div className="about-content">
-          <div className="about-text">
-            <p>
-              I'm Haroon Ali, a web developer, graphic designer, and UI/UX designer passionate about creating seamless digital experiences. I've developed websites for businesses like DataFitt, Alfalah Maid Services, Alfalah Pure Drop, and Aitemaad Maid Services.
+      {/* Full-width content section */}
+      <div className="about-main">
+        <div className="about-main-content">
+          {/* Introduction Section - Left Side */}
+          <div className="about-intro-section">
+            <h2 className="about-title">About Us</h2>
+            <p className="about-subtitle">
+              Crafting digital experiences through code, design, and innovation
             </p>
-            <p>
-              Alongside web development, I design logos, branding materials, and user-friendly interfaces to enhance digital products. I also work on productivity tools, including a Chrome extension for managing bookmarks and custom links. My focus is on crafting visually appealing, user-centric designs while ensuring functionality and efficiency.
+            <p className="about-intro-text">
+              We are a <strong>professional web development agency</strong> specializing in creating seamless digital experiences for businesses. Our team has developed websites for various companies including DataFitt, Alfalah Maid Services, Alfalah Pure Drop, and Aitemaad Maid Services.
             </p>
-            <p>
-              Constantly exploring new technologies and currently learning more about Python Django, I strive to deliver innovative solutions that enhance user experiences. <FaRocket style={{ display: 'inline-block', verticalAlign: 'middle' }} />
+            <p className="about-description">
+              Our expertise spans web development, logo design, branding materials, and user-friendly interfaces. We also develop productivity tools, including Chrome extensions for managing bookmarks and custom links. Our focus is on crafting visually appealing, user-centric designs while ensuring functionality and efficiency.
             </p>
-            <div className="skills">
-              <h3>Core Skills</h3>
-              <div className="skills-scroll-container">
-                <div className="skills-scroll">
-                  {[...skills, ...skills, ...skills].map((skill, index) => (
-                    <span key={`${skill}-${index}`} className="skill-tag">
-                      {skill}
-                    </span>
-                  ))}
+            <p className="about-description">
+              Constantly exploring new technologies and staying updated with the latest trends including Python Django, we strive to deliver innovative solutions that enhance user experiences and drive business growth. <AnimatedRocket size={20} style={{ display: 'inline-block', verticalAlign: 'middle', marginLeft: '0.5rem' }} />
+            </p>
+          </div>
+
+          {/* Project Images Grid - Right Side */}
+          <div className="about-projects-grid">
+            {/* First Column */}
+            <div className="project-column project-column-1">
+              {column1Images.map((image, index) => (
+                <div key={index} className="project-image-wrapper">
+                  <Image
+                    src={image.src}
+                    alt={`Project ${index + 1}`}
+                    width={400}
+                    height={300}
+                    className="project-image"
+                  />
                 </div>
-              </div>
+              ))}
+              <button 
+                className="more-projects-btn"
+                onClick={() => {
+                  const portfolioSection = document.getElementById('portfolio')
+                  if (portfolioSection) {
+                    portfolioSection.scrollIntoView({ behavior: 'smooth' })
+                  }
+                }}
+              >
+                More Projects
+                <AnimatedArrowUpRight size={20} className="btn-arrow-icon" />
+              </button>
+            </div>
+            
+            {/* Second Column */}
+            <div className="project-column project-column-2">
+            <button 
+                className="more-projects-btn-right"
+                onClick={() => {
+                  const portfolioSection = document.getElementById('portfolio')
+                  if (portfolioSection) {
+                    portfolioSection.scrollIntoView({ behavior: 'smooth' })
+                  }
+                }}
+              >
+                More Projects
+                <AnimatedArrowUpRight size={20} className="btn-arrow-icon" />
+              </button>
+              {column2Images.map((image, index) => (
+                <div key={index} className="project-image-wrapper">
+                  <Image
+                    src={image.src}
+                    alt={`Project ${index + 2}`}
+                    width={400}
+                    height={300}
+                    className="project-image"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Full-width skills section */}
+      <div className="about-skills-section">
+        <div className="about-skills-content">
+          <h3 className="skills-title">Core Skills</h3>
+          <div className="skills-scroll-container">
+            <div className="skills-scroll">
+              {[...skills, ...skills].map((skill, index) => (
+                <span key={`${skill}-${index}`} className="skill-tag">
+                  {skill}
+                </span>
+              ))}
             </div>
           </div>
         </div>

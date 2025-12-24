@@ -14,9 +14,9 @@ export default function Footer() {
       <div className="container">
         <div className="footer-content">
           <div className="footer-section">
-            <h3>Haroon Ali</h3>
+            <h3>WebDev Solutions</h3>
             <p>
-              Web Developer & UI/UX Designer from Pakistan. Creating exceptional digital experiences through modern web development.
+              A leading web development agency from Pakistan. Creating exceptional digital experiences through modern web development.
             </p>
           </div>
           <div className="footer-section">
@@ -73,7 +73,7 @@ export default function Footer() {
             <h4>Connect</h4>
             <div className="social-links">
               <a 
-                href="https://github.com/Haroon966" 
+                href="https://github.com/webdevsolutions" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 aria-label="GitHub"
@@ -81,7 +81,7 @@ export default function Footer() {
                 GitHub
               </a>
               <a 
-                href="https://instagram.com/haroon.1920" 
+                href="https://instagram.com/webdevsolutions" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -92,7 +92,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; {currentYear} Web Developer Portfolio. All rights reserved.</p>
+          <p>&copy; 2025 WebDev Solutions. All rights reserved.</p>
         </div>
       </div>
     </footer>

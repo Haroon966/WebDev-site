@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import '../styles/globals.css'
+import ScrollToTop from '@/components/ScrollToTop'
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -14,6 +15,11 @@ export default function App({ Component, pageProps }: AppProps) {
     })
   }, [])
 
-  return <Component {...pageProps} />
+  return (
+    <>
+      <Component {...pageProps} />
+      <ScrollToTop />
+    </>
+  )
 }
 
