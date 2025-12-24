@@ -8,14 +8,14 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="contact">
+    <section id="contact" className="contact" data-aos="fade-up">
       <div className="container">
         <h2 className="section-title">Get In Touch</h2>
         <p className="section-subtitle">
           Let's discuss your next web development project
         </p>
         <div className="contact-content">
-          <div className="contact-info">
+          <div className="contact-info" data-aos="fade-right">
             <div className="contact-item">
               <div className="contact-icon"><FaGlobe /></div>
               <h3>Location</h3>
@@ -45,7 +45,11 @@ export default function Contact() {
               </p>
             </div>
           </div>
-          <form className="contact-form" onSubmit={handleSubmit}>
+          <form
+            className="contact-form"
+            onSubmit={handleSubmit}
+            data-aos="fade-left"
+          >
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input type="text" id="name" name="name" required />

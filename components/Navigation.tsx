@@ -31,7 +31,10 @@ export default function Navigation() {
   }
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+    <nav
+      className={`navbar ${scrolled ? 'scrolled' : ''}`}
+      data-aos="fade-down"
+    >
       <div className="container">
         <div className="nav-brand">Haroon Ali</div>
         <ul className={`nav-menu ${isOpen ? 'active' : ''}`}>

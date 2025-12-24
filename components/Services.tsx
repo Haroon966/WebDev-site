@@ -47,15 +47,20 @@ export default function Services() {
   ]
 
   return (
-    <section id="services" className="services">
+    <section id="services" className="services" data-aos="fade-up">
       <div className="container">
         <h2 className="section-title">What I Can Do</h2>
         <p className="section-subtitle">
           Comprehensive web development services tailored to your needs
         </p>
         <div className="services-grid">
-          {services.map((service) => (
-            <div key={service.title} className="service-card">
+          {services.map((service, index) => (
+            <div
+              key={service.title}
+              className="service-card"
+              data-aos="zoom-in"
+              data-aos-delay={index * 100}
+            >
               <div className="service-icon">{service.icon}</div>
               <h3>{service.title}</h3>
               <p>{service.description}</p>

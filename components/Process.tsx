@@ -57,15 +57,20 @@ export default function Process() {
   ]
 
   return (
-    <section id="process" className="process">
+    <section id="process" className="process" data-aos="fade-up">
       <div className="container">
         <h2 className="section-title">My Development Process</h2>
         <p className="section-subtitle">
           A systematic approach to delivering exceptional websites
         </p>
         <div className="process-timeline">
-          {steps.map((step) => (
-            <div key={step.number} className="process-step">
+          {steps.map((step, index) => (
+            <div
+              key={step.number}
+              className="process-step"
+              data-aos="fade-right"
+              data-aos-delay={index * 100}
+            >
               <div className="step-number">{step.number}</div>
               <div className="step-content">
                 <h3>{step.title}</h3>

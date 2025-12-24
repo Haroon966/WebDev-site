@@ -16,7 +16,7 @@ export default function About() {
   ]
 
   return (
-    <section id="about" className="about">
+    <section id="about" className="about" data-aos="fade-up">
       <div className="container">
         <h2 className="section-title">About Me</h2>
         <div className="about-content">
@@ -32,12 +32,14 @@ export default function About() {
             </p>
             <div className="skills">
               <h3>Core Skills</h3>
-              <div className="skills-grid">
-                {skills.map((skill) => (
-                  <span key={skill} className="skill-tag">
-                    {skill}
-                  </span>
-                ))}
+              <div className="skills-scroll-container">
+                <div className="skills-scroll">
+                  {[...skills, ...skills, ...skills].map((skill, index) => (
+                    <span key={`${skill}-${index}`} className="skill-tag">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
