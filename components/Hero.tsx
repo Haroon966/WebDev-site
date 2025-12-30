@@ -59,6 +59,18 @@ export default function Hero() {
       url: 'https://pet-shop.example.com',
       image: '/images/ecomerce-petstore.png'
     },
+    { 
+      name: 'Crafted by Zainab', 
+      description: 'Professional portfolio and creative showcase website featuring elegant design and modern user experience.', 
+      url: 'https://craftedbyzainab.com/',
+      image: '/images/craftedbyzainab.png'
+    },
+    { 
+      name: 'Aitemaad Patient Care Services', 
+      description: 'Professional healthcare services website providing comprehensive patient care solutions with modern design and user-friendly interface.', 
+      url: 'https://www.aitemaadpatientcareservices.com/',
+      image: '/images/aitemaadpatientcareservices.png'
+    },
   ]
 
   const totalCards = websites.length

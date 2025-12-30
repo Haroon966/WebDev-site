@@ -87,6 +87,20 @@ export default function Portfolio() {
       url: 'https://chromewebstore.google.com/detail/quicklink-manager-drag-dr/mclgefeaonlhenjilfagojgifamhnohg',
       image: '/images/quicklinkmanager.png',
     },
+    {
+      title: 'Crafted by Zainab',
+      description: 'Professional portfolio and creative showcase website featuring elegant design and modern user experience.',
+      tags: ['Web Design', 'UI/UX', 'Portfolio', 'Responsive Design'],
+      url: 'https://craftedbyzainab.com/',
+      image: '/images/craftedbyzainab.png',
+    },
+    {
+      title: 'Aitemaad Patient Care Services',
+      description: 'Professional healthcare services website providing comprehensive patient care solutions with modern design and user-friendly interface.',
+      tags: ['HTML', 'CSS', 'JavaScript', 'Healthcare'],
+      url: 'https://www.aitemaadpatientcareservices.com/',
+      image: '/images/aitemaadpatientcareservices.png',
+    },
   ]
 
   // Initialize gallery order (all items except the main one)

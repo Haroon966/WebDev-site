@@ -113,13 +113,13 @@ const AnimatedIcon = forwardRef<SVGSVGElement, AnimatedIconProps>(
     }[variant]
 
     return (
-      <motion.div
+      <motion.span
         variants={variants}
         animate="animate"
         style={{ display: 'inline-flex', ...style }}
       >
         <Icon ref={ref} size={size} className={className} />
-      </motion.div>
+      </motion.span>
     )
   }
 )
