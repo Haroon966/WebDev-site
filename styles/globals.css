@@ -1225,20 +1225,57 @@ section {
    PROCESS SECTION - TIMELINE NAVIGATION
    ============================================ */
 .process-wrapper {
-  min-height: 100vh;
+  height: 95vh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-weight: 300;
   color: #fff;
   position: relative;
-  background: var(--bg-primary);
+  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
   overflow-x: hidden;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.process-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .process-container {
   position: relative;
-  min-height: 100vh;
   width: 100%;
+  height: 100%;
+  padding: 1rem;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.process-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.process-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.process-container::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.5);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+}
+
+.process-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.7);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
 }
 
 /* Navigation Sidebar - Absolute by default, fixed when section is visible */
@@ -1377,7 +1414,6 @@ section {
   display: block;
   padding: 14px 18px;
   color: rgba(255, 255, 255, 0.7);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
   cursor: pointer;
   border-radius: var(--radius-md);
@@ -1442,14 +1478,12 @@ section {
   background: var(--gradient-primary);
   border-radius: 50%;
   opacity: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
 }
 
 .process-nav-counter {
   font-size: 20px;
   font-weight: 800;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: block;
   line-height: 1;
   background: var(--gradient-primary);
@@ -1546,255 +1580,355 @@ section {
   box-shadow: 0 0 16px rgba(99, 102, 241, 0.8);
 }
 
-/* Full-height Sections */
-.process-section {
-  height: 100vh;
-  font-size: 40px;
-  font-weight: 100;
+/* ============================================
+   PROCESS CARDS - Modern & Clean Design with Drag & Drop
+   ============================================ */
+
+.process-card {
+  position: absolute;
+  width: 280px;
+  height: auto;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  cursor: grab;
+  isolation: isolate;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
-  padding-left: 360px;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  animation: fadeInSection 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
+  padding: 2rem;
+  backdrop-filter: blur(20px) saturate(180%);
+  animation: waterFloat 6s ease-in-out infinite;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  user-select: none;
+  touch-action: none;
 }
 
-.process-section::before {
-  content: '';
+/* Water-like floating animation */
+@keyframes waterFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-3px) rotate(0.5deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-3px) rotate(-0.5deg);
+  }
+}
+
+.process-card.dragging {
+  animation: none !important;
+}
+
+.process-card:active {
+  cursor: grabbing;
+}
+
+.process-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 0 40px rgba(99, 102, 241, 0.3);
+  animation: waterFloatHover 4s ease-in-out infinite;
+}
+
+@keyframes waterFloatHover {
+  0%, 100% {
+    transform: translateY(-8px) scale(1.02) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-11px) scale(1.02) rotate(0.8deg);
+  }
+  50% {
+    transform: translateY(-13px) scale(1.02) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-11px) scale(1.02) rotate(-0.8deg);
+  }
+}
+
+
+.process-card.dragging {
+  opacity: 0.9;
+  z-index: 1000;
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.6),
+    0 0 50px rgba(99, 102, 241, 0.6),
+    0 0 100px rgba(99, 102, 241, 0.3);
+  transform: scale(1.05);
+  animation: none;
+}
+
+
+
+/* Process Line Styles */
+.process-line-path {
+  filter: drop-shadow(0 0 3px rgba(99, 102, 241, 0.3));
+}
+
+/* Flowing Wires Animation */
+.process-line-flow {
+  filter: drop-shadow(0 0 6px rgba(99, 102, 241, 0.6));
+  animation: flowingWire 2s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes flowingWire {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: -30;
+    opacity: 0.8;
+  }
+}
+
+.process-lines-container {
+  overflow: visible;
+}
+
+.process-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Responsive: Hide connectors on smaller screens or when cards stack */
+@media (max-width: 1024px) {
+  .process-card-connector {
+    display: none;
+  }
+}
+
+.process-card-background {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  pointer-events: none;
+  inset: 0;
+  background: inherit;
+  opacity: 0.85;
+  z-index: 1;
 }
 
-.process-section:hover::before {
+.process-card:hover .process-card-background {
   opacity: 1;
 }
 
-.process-section-bg-pattern {
+/* Unreal Engine-style Glow Effect */
+.process-card-glow {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+  inset: -2px;
+  background: inherit;
+  opacity: 0;
+  filter: blur(20px);
+  z-index: 0;
+  border-radius: 1.25rem;
+}
+
+.process-card:hover .process-card-glow {
   opacity: 0.6;
-  animation: patternMove 20s ease-in-out infinite;
-  pointer-events: none;
 }
 
-@keyframes patternMove {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(-20px, -20px) scale(1.1);
-  }
-}
-
-.process-section-bg-glow {
+/* Shine Effect */
+.process-card-shine {
   position: absolute;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
-  animation: glowPulse 8s ease-in-out infinite;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 45%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 55%,
+    transparent 100%
+  );
+  opacity: 0;
+  transform: rotate(45deg);
+  z-index: 2;
   pointer-events: none;
 }
 
-@keyframes glowPulse {
-  0%, 100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.2);
-  }
-}
-
-@keyframes fadeInSection {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.process-section-content {
-  max-width: 800px;
-  padding: var(--spacing-lg);
-  text-align: center;
-  z-index: 2;
-  position: relative;
-  animation: fadeInContent 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
-}
-
-@keyframes fadeInContent {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.process-section-number-wrapper {
-  position: relative;
-  display: inline-block;
-  margin-bottom: var(--spacing-lg);
-}
-
-.process-section-number {
-  font-size: clamp(80px, 12vw, 140px);
-  font-weight: 900;
-  line-height: 1;
-  opacity: 0.25;
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: -0.05em;
-  position: relative;
-  z-index: 1;
-  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.process-section:hover .process-section-number {
-  opacity: 0.35;
-  transform: scale(1.05);
-}
-
-.process-section-number-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
-  border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0;
-  transition: opacity 0.6s ease;
-  z-index: 0;
-}
-
-.process-section:hover .process-section-number-glow {
+.process-card:hover .process-card-shine {
   opacity: 1;
+  animation: shineSweep 1.5s ease-in-out;
 }
 
-.process-section-title {
-  font-size: clamp(2rem, 4vw, 3.5rem);
-  font-weight: 800;
-  margin-bottom: var(--spacing-lg);
-  color: #fff;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3), 0 2px 10px rgba(0, 0, 0, 0.2);
+@keyframes shineSweep {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+
+/* Content Layer */
+.process-card-content {
   position: relative;
-  display: inline-block;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.process-section:hover .process-section-title {
-  transform: translateY(-4px);
-}
-
-.process-section-description {
-  font-size: clamp(1rem, 1.8vw, 1.25rem);
-  font-weight: 400;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.95);
-  max-width: 700px;
-  margin: 0 auto var(--spacing-lg);
-  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
-  position: relative;
-}
-
-.process-section-decoration {
+  z-index: 3;
+  text-align: center;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-top: var(--spacing-lg);
-  opacity: 0.6;
+  gap: 1rem;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 1rem;
 }
 
-.process-section-line {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-  border-radius: 2px;
-}
-
-.process-section-dot {
-  width: 8px;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 50%;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
-  animation: dotPulse 2s ease-in-out infinite;
-}
-
-@keyframes dotPulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scale(1.3);
-    opacity: 1;
-  }
-}
-
-/* Scroll Mask Animation for Data Gathering Section */
-.process-section-with-image {
-  overflow: visible;
+/* Card Number */
+.process-card-number {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 0.9;
+  color: rgba(255, 255, 255, 0.15);
+  letter-spacing: -0.08em;
+  text-shadow: 
+    0 8px 40px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(99, 102, 241, 0.3);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   position: relative;
 }
 
-.process-section-image-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
+.process-card:hover .process-card-number {
+  color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05) translateY(-3px);
+  text-shadow: 
+    0 8px 40px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(99, 102, 241, 0.5);
 }
 
-.process-section-image-mask {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  will-change: clip-path;
-  clip-path: inset(0 0 0 0 round 50px);
+/* Card Title */
+.process-card-title {
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  text-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.6),
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    0 0 10px rgba(99, 102, 241, 0.2);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
-.process-section-image {
-  object-fit: cover;
-  object-position: center;
+.process-card:hover .process-card-title {
+  transform: translateY(-3px);
+  text-shadow: 
+    0 6px 30px rgba(0, 0, 0, 0.7),
+    0 4px 12px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(99, 102, 241, 0.4);
 }
 
-.process-section-with-image .process-section-content {
-  z-index: 2;
-  position: relative;
+/* Card Description - Always Visible */
+.process-card-description {
+  font-size: clamp(0.875rem, 1.5vw, 1rem);
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.95);
+  max-width: 100%;
+  margin: 1.5rem 0 0 0;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.01em;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .process-container {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .process-card {
+    min-height: 280px;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .process-wrapper {
+    padding: 1.5rem;
+  }
+
+  .process-container {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    padding: 0.5rem;
+  }
+
+  .process-card {
+    min-height: 260px;
+    padding: 1.25rem;
+  }
+
+  .process-card-content {
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .process-card-number {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
+  .process-card-title {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+  }
+
+  .process-card-description {
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 480px) {
+  .process-wrapper {
+    padding: 1rem;
+  }
+
+  .process-container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .process-card {
+    min-height: 240px;
+    padding: 1rem;
+  }
+
+  .process-card-content {
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .process-card-number {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  .process-card-title {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+  }
+
+  .process-card-description {
+    font-size: clamp(0.75rem, 1.25vw, 0.85rem);
+    line-height: 1.4;
+  }
 }
 
 /* ============================================
@@ -1805,17 +1939,21 @@ section {
 }
 
 .contact-content {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: var(--spacing-3xl);
+  display: flex;
+  justify-content: center;
+  align-items: center;
   max-width: 1000px;
   margin: 0 auto;
 }
 
 .contact-info {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xl);
+  flex-direction: row;
+  gap: var(--spacing-lg);
+  width: 100%;
+  max-width: 1000px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .contact-item {
@@ -1825,6 +1963,9 @@ section {
   border-radius: var(--radius-xl);
   border: 1px solid var(--border);
   transition: all var(--transition);
+  flex: 1;
+  min-width: 250px;
+  max-width: 300px;
 }
 
 .contact-item:hover {
@@ -2254,7 +2395,12 @@ section {
   }
 
   .process-section {
-    padding-left: 320px;
+    padding-left: 0;
+  }
+
+  .process-section-image-wrapper {
+    left: 0;
+    width: 100%;
   }
 
   .portfolio-layout {
@@ -2461,8 +2607,14 @@ section {
     transform: translateX(220px) rotate(6deg) translateY(10px) scale(0.85);
   }
 
-  .contact-content {
-    grid-template-columns: 1fr;
+  .contact-info {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contact-item {
+    min-width: 100%;
+    max-width: 100%;
   }
 
   /* Process Section - Mobile Responsive */
@@ -2590,6 +2742,8 @@ section {
   }
 
   .process-section-image-wrapper {
+    left: 0;
+    width: 100%;
     opacity: 0.6;
   }
 

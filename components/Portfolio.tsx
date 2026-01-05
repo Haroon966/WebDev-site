@@ -101,6 +101,13 @@ export default function Portfolio() {
       url: 'https://www.aitemaadpatientcareservices.com/',
       image: '/images/aitemaadpatientcareservices.png',
     },
+    {
+      title: 'ChatSQL',
+      description: 'Web-based application that converts natural language queries into SQL commands, making database interactions accessible to users without SQL expertise. Developed for Taleemabad.',
+      tags: ['Web Application', 'Natural Language Processing', 'Database', 'SQL'],
+      url: 'https://chatsql.taleemabad.com/',
+      image: '/images/chatsql.png'
+    },
   ]
 
   // Initialize gallery order (all items except the main one)

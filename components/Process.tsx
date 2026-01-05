@@ -1,13 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import Image from 'next/image'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
-}
+import React, { useState, useRef, useEffect } from 'react'
 
 interface ProcessStep {
   number: string
@@ -16,14 +9,7 @@ interface ProcessStep {
 }
 
 export default function Process() {
-  const [activeSection, setActiveSection] = useState(0)
-  const [isSectionVisible, setIsSectionVisible] = useState(false)
-  const sectionRefs = useRef<(HTMLElement | null)[]>([])
-  const wrapperRef = useRef<HTMLElement | null>(null)
-  const imageWrapperRef = useRef<HTMLDivElement | null>(null)
-  const imageMaskRef = useRef<HTMLDivElement | null>(null)
-
-  const steps: ProcessStep[] = [
+  const [steps, setSteps] = useState<ProcessStep[]>([
     {
       number: '01',
       title: 'Data Gathering & Research',
@@ -72,153 +58,16 @@ export default function Process() {
       description:
         'After a final review and approval, we launch your website and monitor its performance. We provide training documentation, ongoing maintenance support, regular updates, and analytics monitoring to ensure continued success.',
     },
-  ]
+  ])
 
-  // Detect when process section enters/exits viewport
-  useEffect(() => {
-    if (!wrapperRef.current) return
+  const [positions, setPositions] = useState<{ x: number; y: number }[]>([])
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
+  const [isDragging, setIsDragging] = useState(false)
+  const [offset, setOffset] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+  const containerRef = useRef<HTMLDivElement | null>(null)
 
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1,
-    }
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        setIsSectionVisible(entry.isIntersecting)
-      })
-    }
-
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
-    )
-
-    observer.observe(wrapperRef.current)
-
-    return () => {
-      if (wrapperRef.current) {
-        observer.unobserve(wrapperRef.current)
-      }
-    }
-  }, [])
-
-  // Scroll spy functionality
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '-50% 0px -50% 0px',
-      threshold: 0,
-    }
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const index = sectionRefs.current.findIndex(
-            (ref) => ref === entry.target
-          )
-          if (index !== -1) {
-            setActiveSection(index)
-          }
-        }
-      })
-    }
-
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
-    )
-
-    sectionRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref)
-    })
-
-    return () => {
-      sectionRefs.current.forEach((ref) => {
-        if (ref) observer.unobserve(ref)
-      })
-    }
-  }, [])
-
-  // Smooth scroll to section
-  const scrollToSection = (index: number) => {
-    const section = sectionRefs.current[index]
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
-  }
-
-  // GSAP ScrollTrigger mask animation for the first section
-  useEffect(() => {
-    if (!imageWrapperRef.current || !imageMaskRef.current || !sectionRefs.current[0]) return
-
-    const imageWrapper = imageWrapperRef.current
-    const imageMask = imageMaskRef.current
-    const firstSection = sectionRefs.current[0]
-    let imageWidth = 0
-    let imageHeight = 0
-
-    const setImageDimensions = () => {
-      if (imageWrapper) {
-        imageWidth = imageWrapper.offsetWidth
-        imageHeight = imageWrapper.offsetHeight
-      }
-    }
-    setImageDimensions()
-    window.addEventListener('resize', setImageDimensions)
-
-    const inset = { x: 0, y: 0, r: 50 }
-    const snap = gsap.utils.snap(2)
-
-    const videoPinTl = gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: imageWrapper,
-          start: 'center center',
-          end: '+=500',
-          pin: true,
-          scrub: true,
-        },
-      })
-      .fromTo(
-        inset,
-        {
-          x: 0,
-          y: 0,
-          r: 50,
-        },
-        {
-          duration: 1,
-          x: 46,
-          y: 34,
-          r: 140,
-          ease: 'power2.out',
-          onUpdate() {
-            if (imageMask) {
-              imageMask.style.clipPath = `inset(${Math.round(
-                (inset.x * imageWidth) / 200
-              )}px ${Math.round((inset.y * imageHeight) / 200)}px round ${snap(
-                inset.r
-              )}px)`
-            }
-          },
-        },
-        '<'
-      )
-
-    return () => {
-      window.removeEventListener('resize', setImageDimensions)
-      videoPinTl.kill()
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.vars.trigger === imageWrapper) {
-          trigger.kill()
-        }
-      })
-    }
-  }, [])
-
-  // Color gradients for each section
+  // Color gradients for each card
   const sectionColors = [
     'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
     'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)',
@@ -230,98 +79,196 @@ export default function Process() {
     'linear-gradient(135deg, #3b82f6 0%, #6366f1 100%)',
   ]
 
-  return (
-    <section id="process" className="process-wrapper" ref={wrapperRef}>
-      <div className="process-container">
-        {/* Fixed Navigation Sidebar */}
-        <nav
-          className={`process-nav ${isSectionVisible ? 'process-nav-fixed' : ''}`}
-          id="process-nav"
-        >
-          <div className="process-nav-header">
-            <h2 className="process-nav-heading">Process</h2>
-            <div className="process-nav-progress">
-              <div 
-                className="process-nav-progress-bar" 
-                style={{ height: `${((activeSection + 1) / steps.length) * 100}%` }}
-              />
-            </div>
-          </div>
-          <ul className="process-nav-list">
-            {steps.map((step, index) => (
-              <li
-                key={step.number}
-                role="presentation"
-                className={activeSection === index ? 'active' : ''}
-              >
-                <a
-                  href={`#process-section${index + 1}`}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    scrollToSection(index)
-                  }}
-                >
-                  <div className="process-nav-item-wrapper">
-                    <span className="process-nav-counter">{step.number}</span>
-                    <div className="process-nav-content">
-                      <h3 className="process-nav-title">{step.title}</h3>
-                      <p className="process-nav-body">
-                        <strong>{step.title}</strong>. {step.description.substring(0, 100)}...
-                      </p>
-                    </div>
-                  </div>
-                  <div className="process-nav-indicator"></div>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+  // Initialize positions with default grid layout - 4 cards per row, evenly spread
+  useEffect(() => {
+    if (!containerRef.current) return
+    
+    // Default grid layout with 4 columns, evenly spread
+    const cols = 4
+    const cardWidth = 280
+    const cardHeight = 200
+    const padding = 16
+    
+    // Calculate available width (container width minus padding on both sides)
+    const containerWidth = containerRef.current.offsetWidth || 1400
+    const availableWidth = containerWidth - (padding * 2)
+    
+    // Calculate total width needed for 4 cards
+    const totalCardsWidth = cols * cardWidth
+    const totalGap = availableWidth - totalCardsWidth
+    const gapBetweenCards = totalGap / (cols - 1)
+    
+    const defaultPositions = steps.map((_, index) => {
+      const row = Math.floor(index / cols)
+      const col = index % cols
+      const rowGap = 40
+      
+      return {
+        x: padding + col * (cardWidth + gapBetweenCards),
+        y: padding + row * (cardHeight + rowGap),
+      }
+    })
+    setPositions(defaultPositions)
+  }, [])
 
-        {/* Full-height Sections */}
-        {steps.map((step, index) => (
-          <section
-            key={step.number}
-            id={`process-section${index + 1}`}
-            className={`process-section ${index === 0 ? 'process-section-with-image' : ''}`}
-            ref={(el) => {
-              sectionRefs.current[index] = el
-            }}
-            style={{ background: sectionColors[index] }}
-          >
-            {/* Animated Background Elements */}
-            <div className="process-section-bg-pattern"></div>
-            <div className="process-section-bg-glow"></div>
+  // Force re-render to update lines when positions change
+  useEffect(() => {
+    // This will trigger a re-render to update line positions
+  }, [positions])
+
+  // Global mouse event listeners for smooth dragging
+  useEffect(() => {
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (isDragging && draggedIndex !== null && containerRef.current) {
+        const containerRect = containerRef.current.getBoundingClientRect()
+        const card = cardRefs.current[draggedIndex]
+        
+        if (card) {
+          const cardWidth = card.offsetWidth
+          const cardHeight = card.offsetHeight
+          
+          // Calculate position relative to container (without scroll)
+          const newX = e.clientX - containerRect.left - offset.x
+          const newY = e.clientY - containerRect.top - offset.y
+
+          // Clamp to visible container bounds (no scrolling)
+          const padding = 16 // 1rem padding
+          const minX = padding
+          const minY = padding
+          const maxX = containerRect.width - cardWidth - padding
+          const maxY = containerRect.height - cardHeight - padding
+
+          const clampedX = Math.max(minX, Math.min(maxX, newX))
+          const clampedY = Math.max(minY, Math.min(maxY, newY))
+
+          const newPositions = [...positions]
+          newPositions[draggedIndex] = { x: clampedX, y: clampedY }
+          setPositions(newPositions)
+        }
+      }
+    }
+
+    const handleGlobalMouseUp = () => {
+      setIsDragging(false)
+      setDraggedIndex(null)
+    }
+
+    if (isDragging) {
+      document.addEventListener('mousemove', handleGlobalMouseMove)
+      document.addEventListener('mouseup', handleGlobalMouseUp)
+      return () => {
+        document.removeEventListener('mousemove', handleGlobalMouseMove)
+        document.removeEventListener('mouseup', handleGlobalMouseUp)
+      }
+    }
+  }, [isDragging, draggedIndex, offset, positions])
+
+  const handleMouseDown = (e: React.MouseEvent, index: number) => {
+    setIsDragging(true)
+    setDraggedIndex(index)
+    const rect = cardRefs.current[index]?.getBoundingClientRect()
+    if (rect) {
+      setOffset({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      })
+    }
+    e.preventDefault()
+  }
+
+  return (
+    <section id="process" className="process-wrapper">
+      <div 
+        ref={containerRef} 
+        className="process-container"
+      >
+        {/* Connecting Lines */}
+        <svg
+          className="process-lines-container"
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            width: '100%',
+            height: '100%',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+        >
+          <defs>
+            <linearGradient id="flowingGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(99, 102, 241, 0)" stopOpacity="0" />
+              <stop offset="50%" stopColor="rgba(99, 102, 241, 0.8)" stopOpacity="1" />
+              <stop offset="100%" stopColor="rgba(99, 102, 241, 0)" stopOpacity="0" />
+            </linearGradient>
+          </defs>
+          {steps.map((_, index) => {
+            if (index >= steps.length - 1) return null
+            const position = positions[index] || { x: 0, y: 0 }
+            const nextPosition = positions[index + 1] || { x: 0, y: 0 }
+            const cardHeight = cardRefs.current[index]?.offsetHeight || 200
+            const nextCardHeight = cardRefs.current[index + 1]?.offsetHeight || 200
             
-            {index === 0 && (
-              <div className="process-section-image-wrapper" ref={imageWrapperRef}>
-                <div className="process-section-image-mask" ref={imageMaskRef}>
-                  <Image
-                    src="/images/DataGatheringnResearch.jpg"
-                    alt="Data Gathering & Research"
-                    fill
-                    className="process-section-image"
-                    priority
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-                  />
-                </div>
-              </div>
-            )}
-            <div className="process-section-content">
-              <div className="process-section-number-wrapper">
-                <div className="process-section-number">{step.number}</div>
-                <div className="process-section-number-glow"></div>
-              </div>
-              <h2 className="process-section-title">{step.title}</h2>
-              <p className="process-section-description">{step.description}</p>
-              <div className="process-section-decoration">
-                <div className="process-section-line"></div>
-                <div className="process-section-dot"></div>
+            return (
+              <React.Fragment key={`lines-${index}`}>
+                <line
+                  x1={position.x + 140}
+                  y1={position.y + cardHeight / 2}
+                  x2={nextPosition.x + 140}
+                  y2={nextPosition.y + nextCardHeight / 2}
+                  stroke="rgba(99, 102, 241, 0.4)"
+                  strokeWidth="2"
+                  strokeDasharray="5,5"
+                  className="process-line-path"
+                />
+                {/* Flowing wire effect */}
+                <line
+                  x1={position.x + 140}
+                  y1={position.y + cardHeight / 2}
+                  x2={nextPosition.x + 140}
+                  y2={nextPosition.y + nextCardHeight / 2}
+                  stroke="url(#flowingGradient)"
+                  strokeWidth="3"
+                  strokeDasharray="10,5"
+                  className="process-line-flow"
+                  style={{ animationDelay: `${index * 0.3}s` }}
+                />
+              </React.Fragment>
+            )
+          })}
+        </svg>
+        
+        {steps.map((step, index) => {
+          const position = positions[index] || { x: 0, y: 0 }
+          
+          return (
+            <div
+              key={`${step.number}-${index}`}
+              ref={(el) => {
+                cardRefs.current[index] = el
+              }}
+              onMouseDown={(e) => handleMouseDown(e, index)}
+              className={`process-card ${draggedIndex === index ? 'dragging' : ''}`}
+              style={{ 
+                background: sectionColors[index],
+                position: 'absolute',
+                left: `${position.x}px`,
+                top: `${position.y}px`,
+                cursor: isDragging && draggedIndex === index ? 'grabbing' : 'grab',
+                animationDelay: `${index * 0.1}s`,
+              }}
+            >
+              <div className="process-card-background"></div>
+              <div className="process-card-glow"></div>
+              <div className="process-card-shine"></div>
+              <div className="process-card-content">
+                <div className="process-card-number">{step.number}</div>
+                <h2 className="process-card-title">{step.title}</h2>
               </div>
             </div>
-          </section>
-        ))}
+          )
+        })}
       </div>
     </section>
   )
 }
-

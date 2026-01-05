@@ -71,6 +71,12 @@ export default function Hero() {
       url: 'https://www.aitemaadpatientcareservices.com/',
       image: '/images/aitemaadpatientcareservices.png'
     },
+    { 
+      name: 'ChatSQL', 
+      description: 'Web-based application that converts natural language queries into SQL commands, making database interactions accessible to users without SQL expertise.', 
+      url: 'https://chatsql.taleemabad.com/',
+      image: '/images/chatsql.png'
+    },
   ]
 
   const totalCards = websites.length
