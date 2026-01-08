@@ -47,7 +47,7 @@
   border-radius: 16px;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 0.75rem;
   font-weight: 500;
   width: 100%;
@@ -56,7 +56,7 @@
 
 .navItem:hover {
   background: rgba(99, 102, 241, 0.08);
-  color: #6366f1;
+  color: var(--primary);
   transform: translateX(4px);
 }
 
@@ -66,7 +66,7 @@
 
 .navItem.active {
   background: linear-gradient(135deg, rgba(99, 102, 241, 0.12) 0%, rgba(139, 92, 246, 0.08) 100%);
-  color: #6366f1;
+  color: var(--primary);
 }
 
 .iconWrapper {
@@ -86,7 +86,7 @@
 }
 
 .navItem.active .iconWrapper {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  background: var(--gradient-primary);
   color: white;
   box-shadow: 
     0 4px 12px rgba(99, 102, 241, 0.3),
@@ -106,7 +106,7 @@
 }
 
 .navItem.active .label {
-  color: #6366f1;
+  color: var(--primary);
   font-weight: 700;
 }
 
@@ -117,7 +117,7 @@
   transform: translateY(-50%);
   width: 3px;
   height: 40px;
-  background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 100%);
+  background: var(--gradient-primary);
   border-radius: 0 3px 3px 0;
   box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
   animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);

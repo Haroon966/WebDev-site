@@ -67,7 +67,7 @@ export default function Process() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
   const containerRef = useRef<HTMLDivElement | null>(null)
 
-  // Color gradients for each card
+  // Color gradients for each card - using theme colors with variations
   const sectionColors = [
     'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
     'linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)',

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Home, User, Briefcase, Mail } from 'lucide-react'
+import { Home, User, Briefcase, Mail, Settings, Workflow } from 'lucide-react'
 import styles from './Navigation.module.css'
 
 export default function Navigation() {
@@ -9,6 +9,8 @@ export default function Navigation() {
     { icon: Home, href: '#home', label: 'Home' },
     { icon: User, href: '#about', label: 'About' },
     { icon: Briefcase, href: '#portfolio', label: 'Portfolio' },
+    { icon: Settings, href: '#services', label: 'Services' },
+    { icon: Workflow, href: '#process', label: 'Process' },
     { icon: Mail, href: '#contact', label: 'Contact' },
   ]
 
