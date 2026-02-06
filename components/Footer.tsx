@@ -81,12 +81,12 @@ export default function Footer() {
                 GitHub
               </a>
               <a 
-                href="https://instagram.com/webdevsolutions" 
+                href="https://x.com/SameerS69998063" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                aria-label="Instagram"
+                aria-label="X (Twitter)"
               >
-                Instagram
+                X (Twitter)
               </a>
             </div>
           </div>

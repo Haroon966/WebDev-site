@@ -61,7 +61,7 @@ export default function Home() {
               },
               "sameAs": [
                 "https://github.com/webdevsolutions",
-                "https://instagram.com/webdevsolutions"
+                "https://x.com/SameerS69998063"
               ],
               "knowsAbout": [
                 "Web Development",

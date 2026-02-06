@@ -19,24 +19,24 @@ export default function Contact() {
               <div className="contact-icon"><AnimatedMail size={40} /></div>
               <h3>Email</h3>
               <p>
-                <a href="mailto:contact@webdevsolutions.com" style={{ color: 'inherit', textDecoration: 'none' }}>
-                  contact@webdevsolutions.com
+                <a href="mailto:contact@codenest.fun" style={{ color: 'inherit', textDecoration: 'none' }}>
+                  contact@codenest.fun
                 </a>
               </p>
             </div>
             <div className="contact-item">
-              <div className="contact-icon"><AnimatedPhone size={40} /></div>
-              <h3>Connect</h3>
-              <p>
-                <a 
-                  href="https://instagram.com/webdevsolutions" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={{ color: 'inherit', textDecoration: 'none' }}
-                >
-                  Instagram: @webdevsolutions
-                </a>
-              </p>
+            <div className="contact-icon"><AnimatedPhone size={40} /></div>
+            <h3>Connect</h3>
+            <p>
+            <a 
+                href="https://x.com/SameerS69998063" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{ color: 'inherit', textDecoration: 'none' }}
+            >
+                X (Twitter): @SameerS69998063
+            </a>
+            </p>
             </div>
           </div>
         </div>
